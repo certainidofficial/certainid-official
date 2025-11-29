@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CertainID - Privacy-First Digital Identity Verification</title>
+    <meta name="description" content="Patent-protected biometric authentication technology. Decentralized identity verification. Prove you're real in a world of deepfakes.">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --deep-indigo: #0F1540;
+            --electric-cyan: #00EFFF;
+            --pure-white: #FFFFFF;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--deep-indigo) 0%, #1a1f5c 100%);
+            color: var(--pure-white);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Animated background */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(circle at 20% 50%, var(--electric-cyan) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--electric-cyan) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.05; }
+            50% { opacity: 0.1; }
+        }
+
+        /* Header */
+        header {
+            padding: 30px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-placeholder {
+            width: 60px;
+            height: 60px;
+            background: var(--electric-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--deep-indigo);
+            font-size: 24px;
+        }
+
+        .brand-name {
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0 60px;
+            text-align: center;
+            position: relative;
+            z-index: 5;
+        }
+
+        .coming-soon-badge {
+            display: inline-block;
+            background: rgba(0, 239, 255, 0.2);
+            border: 1px solid var(--electric-cyan);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--pure-white) 0%, var(--electric-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .description {
+            font-size: 20px;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.95;
+        }
+
+        .patent-notice {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(0, 239, 255, 0.3);
+        }
+
+        .patent-notice::before {
+            content: "🔒";
+            font-size: 18px;
+        }
+
+        /* Feature Pills */
+        .feature-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .pill {
+            background: rgba(0, 239, 255, 0.1);
+            border: 1px solid rgba(0, 239, 255, 0.3);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .pill:hover {
+            background: rgba(0, 239, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Waitlist Form */
+        .waitlist-section {
+            max-width: 500px;
+            margin: 0 auto 50px;
+        }
+
+        .waitlist-section h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--electric-cyan);
+        }
+
+        .waitlist-form {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .waitlist-form input {
+            flex: 1;
+            padding: 16px 24px;
+            border: 2px solid rgba(0, 239, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            color: var(--pure-white);
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .waitlist-form input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .waitlist-form input:focus {
+            outline: none;
+            border-color: var(--electric-cyan);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .waitlist-form button {
+            padding: 16px 40px;
+            background: var(--electric-cyan);
+            color: var(--deep-indigo);
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .waitlist-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 239, 255, 0.3);
+        }
+
+        .waitlist-form button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .privacy-note {
+            font-size: 13px;
+            opacity: 0.7;
+            margin-top: 15px;
+        }
+
+        .success-message {
+            background: rgba(0, 239, 255, 0.1);
+            border: 1px solid var(--electric-cyan);
+            padding: 16px 24px;
+            border-radius: 12px;
+            margin-top: 20px;
+            display: none;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Features Grid */
+        .features {
+            padding: 60px 0;
+            position: relative;
+            z-index: 5;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 239, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px 30px;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--electric-cyan);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: var(--electric-cyan);
+        }
+
+        .feature-card p {
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 40px 0 60px;
+            text-align: center;
+        }
+
+        .contact-section h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 239, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--pure-white);
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: var(--electric-cyan);
+            color: var(--deep-indigo);
+            transform: translateY(-3px);
+        }
+
+        .email-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 239, 255, 0.3);
+            border-radius: 12px;
+            color: var(--electric-cyan);
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .email-link:hover {
+            background: rgba(0, 239, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(0, 239, 255, 0.2);
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero .description {
+                font-size: 18px;
+            }
+
+            .waitlist-form {
+                flex-direction: column;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .brand-name {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-placeholder">C</div>
+                <span class="brand-name">CERTAIN ID</span>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div class="coming-soon-badge">Coming Soon</div>
+            
+            <h1>
+                Your Identity.<br>
+                <span class="gradient-text">Your Control.</span>
+            </h1>
+            
+            <p class="description">
+                The future of digital identity is here. CertainID uses patent-protected 
+                biometric authentication and blockchain technology to prove you're real—without 
+                compromising your privacy.
+            </p>
+
+            <div class="patent-notice">
+                Patent-Protected Technology
+            </div>
+
+            <div class="feature-pills">
+                <div class="pill">🔒 Privacy-First</div>
+                <div class="pill">🌐 Decentralized</div>
+                <div class="pill">✅ Anti-Deepfake</div>
+                <div class="pill">⚡ Biometric Authentication</div>
+            </div>
+
+            <div class="waitlist-section">
+                <h3>Join the Waitlist</h3>
+                <p>Be the first to experience the future of digital identity</p>
+                
+                <form class="waitlist-form" id="waitlistForm">
+                    <input 
+                        type="email" 
+                        id="emailInput"
+                        placeholder="Enter your email" 
+                        required
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                    />
+                    <button type="submit" id="submitBtn">Join Waitlist</button>
+                </form>
+                
+                <p class="privacy-note">
+                    We respect your privacy. No spam, ever.
+                </p>
+
+                <div class="success-message" id="successMessage">
+                    ✨ Success! You're on the list. We'll be in touch soon.
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <h2>Why CertainID?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Privacy-First Architecture</h3>
+                    <p>Your biometric data never leaves your device. Ever. We prove identity without collecting it.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎭</div>
+                    <h3>Combat Deepfakes</h3>
+                    <p>Blockchain-powered authentication ensures your digital presence is verifiably you—not AI-generated.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⛓️</div>
+                    <h3>Decentralized & Secure</h3>
+                    <p>Built on Polygon blockchain. No central authority controls your identity. You do.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <h3>Get in Touch</h3>
+            
+            <a href="mailto:hello@certainid.io" class="email-link">
+                hello@certainid.io
+            </a>
+
+            <div class="social-links">
+                <a href="https://github.com/certainidofficial" class="social-link" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CertainID. Building the future of digital identity.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('waitlistForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('emailInput').value;
+            const successMessage = document.getElementById('successMessage');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Disable button during submission
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Joining...';
+            
+            // For now, just show success message
+            // Later, we'll integrate with actual backend/email collection
+            console.log('Email submitted:', email);
+            
+            // Show success
+            successMessage.classList.add('show');
+            
+            // Clear input
+            document.getElementById('emailInput').value = '';
+            
+            // Re-enable button
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Join Waitlist';
+            }, 1000);
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 5000);
+            
+            // TODO: In next phase, integrate with:
+            // - N8N webhook for automation
+            // - Airtable for storage
+            // - Email service for confirmations
+        });
+    </script>
+</body>
+</html>
