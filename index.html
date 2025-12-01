@@ -21,40 +21,75 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            background: linear-gradient(135deg, var(--deep-indigo) 0%, #1a1f5c 100%);
+            background: linear-gradient(135deg, var(--deep-indigo) 0%, #1a1f5c 50%, #0a0d2c 100%);
             color: var(--pure-white);
             min-height: 100vh;
             overflow-x: hidden;
             line-height: 1.6;
+            position: relative;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Animated background */
+        /* Animated background with floating particles */
         .bg-pattern {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0.05;
+            opacity: 0.08;
             pointer-events: none;
             background-image: 
-                radial-gradient(circle at 20% 50%, var(--electric-cyan) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, var(--electric-cyan) 0%, transparent 50%);
-            animation: pulse 8s ease-in-out infinite;
+                radial-gradient(circle at 20% 30%, var(--electric-cyan) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, var(--electric-cyan) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(0, 239, 255, 0.5) 0%, transparent 40%);
+            animation: pulse 12s ease-in-out infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 0.05; }
-            50% { opacity: 0.1; }
+            0%, 100% { 
+                opacity: 0.08;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.15;
+                transform: scale(1.05);
+            }
         }
 
-        /* Header */
+        /* Floating particles */
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--electric-cyan);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 30%; top: 60%; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 70%; top: 30%; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 90%; top: 70%; animation-delay: 6s; }
+        .particle:nth-child(5) { left: 50%; top: 50%; animation-delay: 8s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-30px) translateX(20px); }
+            50% { transform: translateY(-60px) translateX(-20px); }
+            75% { transform: translateY(-30px) translateX(10px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header with glassmorphism */
         header {
             padding: 30px 0;
             position: relative;
@@ -65,30 +100,46 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            border: 1px solid rgba(0, 239, 255, 0.2);
+            width: fit-content;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .logo-container:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--electric-cyan);
+            box-shadow: 0 8px 32px rgba(0, 239, 255, 0.2);
         }
 
         .logo-placeholder {
-            width: 60px;
-            height: 60px;
-            background: var(--electric-cyan);
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--electric-cyan) 0%, #00c4d4 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             color: var(--deep-indigo);
-            font-size: 24px;
+            font-size: 22px;
+            box-shadow: 0 4px 20px rgba(0, 239, 255, 0.4);
         }
 
         .brand-name {
-            font-size: 32px;
-            font-weight: 600;
-            letter-spacing: -0.5px;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0, 239, 255, 0.3);
         }
 
-        /* Hero Section */
+        /* Hero Section with premium effects */
         .hero {
-            padding: 80px 0 60px;
+            padding: 100px 0 80px;
             text-align: center;
             position: relative;
             z-index: 5;
@@ -96,107 +147,144 @@
 
         .coming-soon-badge {
             display: inline-block;
-            background: rgba(0, 239, 255, 0.2);
+            background: rgba(0, 239, 255, 0.15);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--electric-cyan);
-            padding: 8px 20px;
+            padding: 10px 28px;
             border-radius: 50px;
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            margin-bottom: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
             text-transform: uppercase;
+            box-shadow: 0 4px 20px rgba(0, 239, 255, 0.3);
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 4px 20px rgba(0, 239, 255, 0.3); }
+            50% { box-shadow: 0 4px 30px rgba(0, 239, 255, 0.5); }
         }
 
         .hero h1 {
-            font-size: 56px;
-            font-weight: 700;
-            margin-bottom: 24px;
-            line-height: 1.2;
+            font-size: 72px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            line-height: 1.1;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero h1 .gradient-text {
-            background: linear-gradient(135deg, var(--pure-white) 0%, var(--electric-cyan) 100%);
+            background: linear-gradient(135deg, var(--pure-white) 0%, var(--electric-cyan) 50%, #00c4d4 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            filter: drop-shadow(0 0 20px rgba(0, 239, 255, 0.3));
         }
 
         .hero .description {
-            font-size: 20px;
-            line-height: 1.7;
-            max-width: 700px;
-            margin: 0 auto 40px;
+            font-size: 22px;
+            line-height: 1.8;
+            max-width: 750px;
+            margin: 0 auto 50px;
             opacity: 0.95;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out 0.2s backwards;
         }
 
         .patent-notice {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            margin-bottom: 40px;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 15px;
+            margin-bottom: 50px;
             border: 1px solid rgba(0, 239, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out 0.4s backwards;
         }
 
         .patent-notice::before {
             content: "🔒";
-            font-size: 18px;
+            font-size: 20px;
+            filter: drop-shadow(0 0 8px rgba(0, 239, 255, 0.6));
         }
 
-        /* Feature Pills */
+        /* Feature Pills with hover effects */
         .feature-pills {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 15px;
             justify-content: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
+            animation: fadeInUp 1s ease-out 0.6s backwards;
         }
 
         .pill {
-            background: rgba(0, 239, 255, 0.1);
-            border: 1px solid rgba(0, 239, 255, 0.3);
-            padding: 12px 24px;
+            background: rgba(0, 239, 255, 0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 239, 255, 0.4);
+            padding: 14px 28px;
             border-radius: 50px;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .pill:hover {
-            background: rgba(0, 239, 255, 0.2);
-            transform: translateY(-2px);
+            background: rgba(0, 239, 255, 0.25);
+            border-color: var(--electric-cyan);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 239, 255, 0.4);
         }
 
-        /* Waitlist Form */
+        /* Waitlist Form with premium glassmorphism */
         .waitlist-section {
-            max-width: 500px;
-            margin: 0 auto 50px;
+            max-width: 550px;
+            margin: 0 auto 60px;
+            animation: fadeInUp 1s ease-out 0.8s backwards;
         }
 
         .waitlist-section h3 {
-            font-size: 24px;
+            font-size: 28px;
             margin-bottom: 15px;
             color: var(--electric-cyan);
+            text-shadow: 0 0 20px rgba(0, 239, 255, 0.5);
         }
 
         .waitlist-form {
             display: flex;
             gap: 12px;
-            margin-top: 20px;
+            margin-top: 25px;
         }
 
         .waitlist-form input {
             flex: 1;
-            padding: 16px 24px;
-            border: 2px solid rgba(0, 239, 255, 0.3);
-            background: rgba(255, 255, 255, 0.05);
+            padding: 18px 28px;
+            border: 2px solid rgba(0, 239, 255, 0.4);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
             border-radius: 50px;
             color: var(--pure-white);
             font-size: 16px;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .waitlist-form input::placeholder {
@@ -206,56 +294,83 @@
         .waitlist-form input:focus {
             outline: none;
             border-color: var(--electric-cyan);
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 0 4px rgba(0, 239, 255, 0.1),
+                        inset 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .waitlist-form button {
-            padding: 16px 40px;
-            background: var(--electric-cyan);
+            padding: 18px 45px;
+            background: linear-gradient(135deg, var(--electric-cyan) 0%, #00c4d4 100%);
             color: var(--deep-indigo);
             border: none;
             border-radius: 50px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             white-space: nowrap;
+            box-shadow: 0 4px 20px rgba(0, 239, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .waitlist-form button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .waitlist-form button:hover::before {
+            left: 100%;
         }
 
         .waitlist-form button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 239, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 239, 255, 0.6);
+        }
+
+        .waitlist-form button:active {
+            transform: translateY(-1px);
         }
 
         .waitlist-form button:disabled {
-            opacity: 0.5;
+            opacity: 0.6;
             cursor: not-allowed;
+            transform: none;
         }
 
         .privacy-note {
             font-size: 13px;
             opacity: 0.7;
-            margin-top: 15px;
+            margin-top: 18px;
         }
 
         .success-message {
-            background: rgba(0, 239, 255, 0.1);
+            background: rgba(0, 239, 255, 0.15);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--electric-cyan);
-            padding: 16px 24px;
-            border-radius: 12px;
-            margin-top: 20px;
+            padding: 18px 28px;
+            border-radius: 16px;
+            margin-top: 25px;
             display: none;
-            animation: slideIn 0.3s ease-out;
+            box-shadow: 0 8px 25px rgba(0, 239, 255, 0.3);
         }
 
         .success-message.show {
             display: block;
+            animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(-10px);
+                transform: translateY(-20px);
             }
             to {
                 opacity: 1;
@@ -263,65 +378,95 @@
             }
         }
 
-        /* Features Grid */
+        /* Features Grid with premium cards */
         .features {
-            padding: 60px 0;
+            padding: 80px 0;
             position: relative;
             z-index: 5;
         }
 
         .features h2 {
             text-align: center;
-            font-size: 36px;
-            margin-bottom: 50px;
+            font-size: 48px;
+            margin-bottom: 60px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
         }
 
         .feature-card {
             background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(0, 239, 255, 0.2);
-            border-radius: 20px;
-            padding: 40px 30px;
-            transition: all 0.3s;
+            border-radius: 24px;
+            padding: 45px 35px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--electric-cyan), #00c4d4);
+            transform: scaleX(0);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
         }
 
         .feature-card:hover {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.1);
             border-color: var(--electric-cyan);
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(0, 239, 255, 0.3);
         }
 
         .feature-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
+            font-size: 56px;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 4px 15px rgba(0, 239, 255, 0.4));
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .feature-card h3 {
-            font-size: 22px;
-            margin-bottom: 12px;
+            font-size: 24px;
+            margin-bottom: 15px;
             color: var(--electric-cyan);
+            text-shadow: 0 2px 10px rgba(0, 239, 255, 0.3);
         }
 
         .feature-card p {
-            line-height: 1.6;
+            line-height: 1.7;
             opacity: 0.9;
+            font-size: 16px;
         }
 
         /* Contact Section */
         .contact-section {
-            padding: 40px 0 60px;
+            padding: 60px 0 80px;
             text-align: center;
         }
 
         .contact-section h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            opacity: 0.9;
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .social-links {
@@ -329,60 +474,70 @@
             gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 20px;
+            margin-top: 25px;
         }
 
         .social-link {
-            width: 50px;
-            height: 50px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(0, 239, 255, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
             color: var(--pure-white);
-            font-size: 20px;
-            transition: all 0.3s;
+            font-size: 22px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .social-link:hover {
             background: var(--electric-cyan);
             color: var(--deep-indigo);
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 239, 255, 0.5);
         }
 
         .email-link {
             display: inline-block;
-            margin-top: 30px;
-            padding: 15px 30px;
-            background: rgba(255, 255, 255, 0.05);
+            margin-top: 35px;
+            padding: 18px 40px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(0, 239, 255, 0.3);
-            border-radius: 12px;
+            border-radius: 16px;
             color: var(--electric-cyan);
             text-decoration: none;
-            font-size: 18px;
-            transition: all 0.3s;
+            font-size: 20px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .email-link:hover {
-            background: rgba(0, 239, 255, 0.1);
-            transform: translateY(-2px);
+            background: rgba(0, 239, 255, 0.15);
+            border-color: var(--electric-cyan);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 239, 255, 0.4);
         }
 
         /* Footer */
         footer {
-            padding: 40px 0;
+            padding: 50px 0;
             text-align: center;
             border-top: 1px solid rgba(0, 239, 255, 0.2);
-            opacity: 0.7;
+            opacity: 0.8;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 36px;
+                font-size: 42px;
             }
 
             .hero .description {
@@ -398,13 +553,36 @@
             }
 
             .brand-name {
-                font-size: 24px;
+                font-size: 22px;
             }
+
+            .features h2 {
+                font-size: 36px;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
     <div class="bg-pattern"></div>
+    
+    <!-- Floating particles -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
 
     <div class="container">
         <header>
@@ -467,19 +645,19 @@
         <section class="features">
             <h2>Why CertainID?</h2>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">🔐</div>
                     <h3>Privacy-First Architecture</h3>
                     <p>Your biometric data never leaves your device. Ever. We prove identity without collecting it.</p>
                 </div>
 
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">🎭</div>
                     <h3>Combat Deepfakes</h3>
                     <p>Blockchain-powered authentication ensures your digital presence is verifiably you—not AI-generated.</p>
                 </div>
 
-                <div class="feature-card">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">⛓️</div>
                     <h3>Decentralized & Secure</h3>
                     <p>Built on Polygon blockchain. No central authority controls your identity. You do.</p>
@@ -495,8 +673,13 @@
             </a>
 
             <div class="social-links">
+                <a href="https://twitter.com/IDCertain" class="social-link" target="_blank" rel="noopener" aria-label="Twitter" title="Twitter">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </a>
                 <a href="https://github.com/certainidofficial" class="social-link" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                     </svg>
                 </a>
@@ -511,6 +694,7 @@
     </footer>
 
     <script>
+        // Waitlist form submission
         document.getElementById('waitlistForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -518,36 +702,39 @@
             const successMessage = document.getElementById('successMessage');
             const submitBtn = document.getElementById('submitBtn');
             
-            // Disable button during submission
             submitBtn.disabled = true;
             submitBtn.textContent = 'Joining...';
             
-            // For now, just show success message
-            // Later, we'll integrate with actual backend/email collection
             console.log('Email submitted:', email);
             
-            // Show success
-            successMessage.classList.add('show');
-            
-            // Clear input
-            document.getElementById('emailInput').value = '';
-            
-            // Re-enable button
             setTimeout(() => {
+                successMessage.classList.add('show');
+                document.getElementById('emailInput').value = '';
+                
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Join Waitlist';
-            }, 1000);
-            
-            // Hide message after 5 seconds
-            setTimeout(() => {
-                successMessage.classList.remove('show');
-            }, 5000);
-            
-            // TODO: In next phase, integrate with:
-            // - N8N webhook for automation
-            // - Airtable for storage
-            // - Email service for confirmations
+                
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 5000);
+            }, 800);
         });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
