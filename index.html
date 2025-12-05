@@ -28,10 +28,8 @@
             min-height: 100vh;
             overflow-x: hidden;
             line-height: 1.6;
-            position: relative;
         }
 
-        /* Animated background with floating particles */
         .bg-pattern {
             position: fixed;
             top: 0;
@@ -42,80 +40,31 @@
             pointer-events: none;
             background-image: 
                 radial-gradient(circle at 20% 30%, var(--electric-cyan) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, var(--electric-cyan) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(0, 239, 255, 0.5) 0%, transparent 40%);
-            animation: pulse 12s ease-in-out infinite;
+                radial-gradient(circle at 80% 70%, var(--electric-cyan) 0%, transparent 50%);
+            animation: bgPulse 12s ease-in-out infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { 
-                opacity: 0.08;
-                transform: scale(1);
-            }
-            50% { 
-                opacity: 0.15;
-                transform: scale(1.05);
-            }
-        }
-
-        /* Floating particles */
-        .particle {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background: var(--electric-cyan);
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0.3;
-            animation: float 20s infinite ease-in-out;
-        }
-
-        .particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
-        .particle:nth-child(2) { left: 30%; top: 60%; animation-delay: 2s; }
-        .particle:nth-child(3) { left: 70%; top: 30%; animation-delay: 4s; }
-        .particle:nth-child(4) { left: 90%; top: 70%; animation-delay: 6s; }
-        .particle:nth-child(5) { left: 50%; top: 50%; animation-delay: 8s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            25% { transform: translateY(-30px) translateX(20px); }
-            50% { transform: translateY(-60px) translateX(-20px); }
-            75% { transform: translateY(-30px) translateX(10px); }
+        @keyframes bgPulse {
+            0%, 100% { opacity: 0.08; }
+            50% { opacity: 0.15; }
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
             position: relative;
             z-index: 1;
         }
 
-        /* Header with glassmorphism */
         header {
             padding: 30px 0;
-            position: relative;
-            z-index: 10;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
             gap: 15px;
-            padding: 15px 25px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 50px;
-            border: 1px solid rgba(0, 239, 255, 0.2);
-            width: fit-content;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .logo-container:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--electric-cyan);
-            box-shadow: 0 8px 32px rgba(0, 239, 255, 0.2);
         }
 
         .logo-image {
@@ -132,12 +81,9 @@
             text-shadow: 0 2px 10px rgba(0, 239, 255, 0.3);
         }
 
-        /* Hero Section with premium effects */
         .hero {
-            padding: 100px 0 80px;
+            padding: 40px 0;
             text-align: center;
-            position: relative;
-            z-index: 5;
         }
 
         .coming-soon-badge {
@@ -150,35 +96,69 @@
             font-size: 13px;
             font-weight: 700;
             letter-spacing: 2px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-transform: uppercase;
-            box-shadow: 0 4px 20px rgba(0, 239, 255, 0.3);
-            animation: glow 3s ease-in-out infinite;
+            animation: badgeGlow 3s ease-in-out infinite;
         }
 
-        @keyframes glow {
+        @keyframes badgeGlow {
             0%, 100% { box-shadow: 0 4px 20px rgba(0, 239, 255, 0.3); }
-            50% { box-shadow: 0 4px 30px rgba(0, 239, 255, 0.5); }
+            50% { box-shadow: 0 4px 30px rgba(0, 239, 255, 0.6); }
+        }
+
+        /* Central Logo Animation */
+        .hero-logo {
+            width: 280px;
+            height: 280px;
+            margin: 50px auto;
+            position: relative;
+            animation: logoFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .logo-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 239, 255, 0.4) 0%, rgba(0, 239, 255, 0.2) 40%, transparent 70%);
+            animation: glowPulse 2.5s ease-in-out infinite;
+            filter: blur(20px);
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { 
+                opacity: 0.6; 
+                transform: translate(-50%, -50%) scale(1); 
+            }
+            50% { 
+                opacity: 1; 
+                transform: translate(-50%, -50%) scale(1.15); 
+            }
+        }
+
+        .hero-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 0 30px rgba(0, 239, 255, 0.8)) drop-shadow(0 0 60px rgba(0, 239, 255, 0.4));
         }
 
         .hero h1 {
-            font-size: 72px;
+            font-size: 56px;
             font-weight: 800;
-            margin-bottom: 30px;
-            line-height: 1.1;
+            margin-bottom: 20px;
+            line-height: 1.2;
             text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            animation: fadeInUp 1s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .hero h1 .gradient-text {
@@ -186,48 +166,84 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 0 20px rgba(0, 239, 255, 0.3));
         }
 
-        .hero .description {
-            font-size: 22px;
-            line-height: 1.8;
-            max-width: 750px;
-            margin: 0 auto 50px;
-            opacity: 0.95;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            animation: fadeInUp 1s ease-out 0.2s backwards;
-        }
-
-        .patent-notice {
+        .patent-badge {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.08);
+            gap: 12px;
+            background: rgba(0, 239, 255, 0.2);
             backdrop-filter: blur(10px);
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-size: 15px;
-            margin-bottom: 50px;
-            border: 1px solid rgba(0, 239, 255, 0.3);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            animation: fadeInUp 1s ease-out 0.4s backwards;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            margin: 30px 0 40px;
+            border: 2px solid var(--electric-cyan);
+            box-shadow: 0 8px 30px rgba(0, 239, 255, 0.4);
+            letter-spacing: 0.5px;
         }
 
-        .patent-notice::before {
+        .patent-badge::before {
             content: "🔒";
-            font-size: 20px;
-            filter: drop-shadow(0 0 8px rgba(0, 239, 255, 0.6));
+            font-size: 22px;
         }
 
-        /* Feature Pills with hover effects */
+        .description {
+            font-size: 20px;
+            line-height: 1.8;
+            max-width: 750px;
+            margin: 0 auto 40px;
+            opacity: 0.95;
+        }
+
+        /* Use Cases Grid */
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 25px;
+            max-width: 800px;
+            margin: 50px auto;
+        }
+
+        .use-case {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 239, 255, 0.3);
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .use-case:hover {
+            background: rgba(0, 239, 255, 0.15);
+            border-color: var(--electric-cyan);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 239, 255, 0.4);
+        }
+
+        .use-case-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 10px rgba(0, 239, 255, 0.3));
+        }
+
+        .use-case-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--electric-cyan);
+            letter-spacing: 1px;
+        }
+
+        /* Feature Pills */
         .feature-pills {
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
             justify-content: center;
-            margin-bottom: 60px;
-            animation: fadeInUp 1s ease-out 0.6s backwards;
+            align-items: center;
+            margin: 40px 0;
         }
 
         .pill {
@@ -238,29 +254,39 @@
             border-radius: 50px;
             font-size: 15px;
             font-weight: 600;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .pill.primary {
+            background: rgba(0, 239, 255, 0.25);
+            border: 2px solid var(--electric-cyan);
+            padding: 18px 36px;
+            font-size: 17px;
+            font-weight: 700;
+            box-shadow: 0 6px 25px rgba(0, 239, 255, 0.4);
         }
 
         .pill:hover {
             background: rgba(0, 239, 255, 0.25);
             border-color: var(--electric-cyan);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0, 239, 255, 0.4);
+            transform: translateY(-3px);
         }
 
-        /* Waitlist Form with premium glassmorphism */
+        .pill.primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 35px rgba(0, 239, 255, 0.6);
+        }
+
+        /* Waitlist Form */
         .waitlist-section {
             max-width: 550px;
-            margin: 0 auto 60px;
-            animation: fadeInUp 1s ease-out 0.8s backwards;
+            margin: 60px auto;
         }
 
         .waitlist-section h3 {
             font-size: 28px;
             margin-bottom: 15px;
             color: var(--electric-cyan);
-            text-shadow: 0 0 20px rgba(0, 239, 255, 0.5);
         }
 
         .waitlist-form {
@@ -279,7 +305,6 @@
             color: var(--pure-white);
             font-size: 16px;
             transition: all 0.3s ease;
-            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .waitlist-form input::placeholder {
@@ -290,8 +315,7 @@
             outline: none;
             border-color: var(--electric-cyan);
             background: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 0 0 4px rgba(0, 239, 255, 0.1),
-                        inset 0 2px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 0 4px rgba(0, 239, 255, 0.1);
         }
 
         .waitlist-form button {
@@ -303,41 +327,13 @@
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             white-space: nowrap;
-            box-shadow: 0 4px 20px rgba(0, 239, 255, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .waitlist-form button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .waitlist-form button:hover::before {
-            left: 100%;
         }
 
         .waitlist-form button:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 30px rgba(0, 239, 255, 0.6);
-        }
-
-        .waitlist-form button:active {
-            transform: translateY(-1px);
-        }
-
-        .waitlist-form button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
         }
 
         .privacy-note {
@@ -348,43 +344,32 @@
 
         .success-message {
             background: rgba(0, 239, 255, 0.15);
-            backdrop-filter: blur(10px);
             border: 1px solid var(--electric-cyan);
-            padding: 18px 28px;
+            padding: 18px;
             border-radius: 16px;
             margin-top: 25px;
             display: none;
-            box-shadow: 0 8px 25px rgba(0, 239, 255, 0.3);
         }
 
         .success-message.show {
             display: block;
-            animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideIn 0.5s ease;
         }
 
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Features Grid with premium cards */
+        /* Features Section */
         .features {
             padding: 80px 0;
-            position: relative;
-            z-index: 5;
         }
 
         .features h2 {
             text-align: center;
             font-size: 48px;
             margin-bottom: 60px;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
         .features-grid {
@@ -399,26 +384,7 @@
             border: 1px solid rgba(0, 239, 255, 0.2);
             border-radius: 24px;
             padding: 45px 35px;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--electric-cyan), #00c4d4);
-            transform: scaleX(0);
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .feature-card:hover::before {
-            transform: scaleX(1);
+            transition: all 0.5s ease;
         }
 
         .feature-card:hover {
@@ -431,25 +397,17 @@
         .feature-icon {
             font-size: 56px;
             margin-bottom: 25px;
-            filter: drop-shadow(0 4px 15px rgba(0, 239, 255, 0.4));
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .feature-card:hover .feature-icon {
-            transform: scale(1.1) rotate(5deg);
         }
 
         .feature-card h3 {
             font-size: 24px;
             margin-bottom: 15px;
             color: var(--electric-cyan);
-            text-shadow: 0 2px 10px rgba(0, 239, 255, 0.3);
         }
 
         .feature-card p {
             line-height: 1.7;
             opacity: 0.9;
-            font-size: 16px;
         }
 
         /* Contact Section */
@@ -461,7 +419,6 @@
         .contact-section h3 {
             font-size: 28px;
             margin-bottom: 30px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .social-links {
@@ -477,7 +434,6 @@
             height: 56px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
             border: 1px solid rgba(0, 239, 255, 0.3);
             display: flex;
             align-items: center;
@@ -485,15 +441,13 @@
             text-decoration: none;
             color: var(--pure-white);
             font-size: 22px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
         }
 
         .social-link:hover {
             background: var(--electric-cyan);
             color: var(--deep-indigo);
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(0, 239, 255, 0.5);
+            transform: translateY(-5px);
         }
 
         .email-link {
@@ -501,83 +455,39 @@
             margin-top: 35px;
             padding: 18px 40px;
             background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
             border: 1px solid rgba(0, 239, 255, 0.3);
             border-radius: 16px;
             color: var(--electric-cyan);
             text-decoration: none;
             font-size: 20px;
             font-weight: 600;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
         }
 
         .email-link:hover {
             background: rgba(0, 239, 255, 0.15);
-            border-color: var(--electric-cyan);
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 239, 255, 0.4);
         }
 
-        /* Footer */
         footer {
             padding: 50px 0;
             text-align: center;
             border-top: 1px solid rgba(0, 239, 255, 0.2);
             opacity: 0.8;
-            background: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 42px;
-            }
-
-            .hero .description {
-                font-size: 18px;
-            }
-
-            .waitlist-form {
-                flex-direction: column;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .brand-name {
-                font-size: 22px;
-            }
-
-            .features h2 {
-                font-size: 36px;
-            }
-        }
-
-        /* Scroll animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+            .hero h1 { font-size: 36px; }
+            .description { font-size: 18px; }
+            .waitlist-form { flex-direction: column; }
+            .features-grid { grid-template-columns: 1fr; }
+            .use-cases { grid-template-columns: repeat(2, 1fr); }
+            .patent-badge { font-size: 14px; padding: 12px 24px; }
         }
     </style>
 </head>
 <body>
     <div class="bg-pattern"></div>
-    
-    <!-- Floating particles -->
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
 
     <div class="container">
         <header>
@@ -590,26 +500,52 @@
         <section class="hero">
             <div class="coming-soon-badge">Coming Soon</div>
             
+            <!-- Central Animated Logo -->
+            <div class="hero-logo">
+                <div class="logo-glow"></div>
+                <img src="Certain-id-logo.png" alt="CertainID">
+            </div>
+            
             <h1>
                 Your Identity.<br>
                 <span class="gradient-text">Your Control.</span>
             </h1>
             
+            <div class="patent-badge">
+                Patent-Protected Technology
+            </div>
+
             <p class="description">
                 The future of digital identity is here. CertainID uses patent-protected 
                 biometric authentication and blockchain technology to prove you're real—without 
                 compromising your privacy.
             </p>
 
-            <div class="patent-notice">
-                Patent-Protected Technology
+            <!-- Use Cases Grid - FOCUSED 4 -->
+            <div class="use-cases">
+                <div class="use-case">
+                    <div class="use-case-icon">🌐</div>
+                    <div class="use-case-label">SOCIAL MEDIA</div>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-icon">🏦</div>
+                    <div class="use-case-label">BANKING</div>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-icon">🏛️</div>
+                    <div class="use-case-label">GOVERNMENT</div>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-icon">🛒</div>
+                    <div class="use-case-label">E-COMMERCE</div>
+                </div>
             </div>
 
             <div class="feature-pills">
                 <div class="pill">🔒 Privacy-First</div>
                 <div class="pill">🌐 Decentralized</div>
+                <div class="pill primary">⚡ Biometric Authentication</div>
                 <div class="pill">✅ Anti-Deepfake</div>
-                <div class="pill">⚡ Biometric Authentication</div>
             </div>
 
             <div class="waitlist-section">
@@ -622,7 +558,6 @@
                         id="emailInput"
                         placeholder="Enter your email" 
                         required
-                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                     />
                     <button type="submit" id="submitBtn">Join Waitlist</button>
                 </form>
@@ -640,19 +575,19 @@
         <section class="features">
             <h2>Why CertainID?</h2>
             <div class="features-grid">
-                <div class="feature-card fade-in">
+                <div class="feature-card">
                     <div class="feature-icon">🔐</div>
                     <h3>Privacy-First Architecture</h3>
                     <p>Your biometric data never leaves your device. Ever. We prove identity without collecting it.</p>
                 </div>
 
-                <div class="feature-card fade-in">
+                <div class="feature-card">
                     <div class="feature-icon">🎭</div>
                     <h3>Combat Deepfakes</h3>
                     <p>Blockchain-powered authentication ensures your digital presence is verifiably you—not AI-generated.</p>
                 </div>
 
-                <div class="feature-card fade-in">
+                <div class="feature-card">
                     <div class="feature-icon">⛓️</div>
                     <h3>Decentralized & Secure</h3>
                     <p>Built on Polygon blockchain. No central authority controls your identity. You do.</p>
@@ -668,12 +603,12 @@
             </a>
 
             <div class="social-links">
-                <a href="https://twitter.com/IDCertain" class="social-link" target="_blank" rel="noopener" aria-label="Twitter" title="Twitter">
+                <a href="https://twitter.com/IDCertain" class="social-link" target="_blank" rel="noopener" aria-label="Twitter">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                     </svg>
                 </a>
-                <a href="https://github.com/certainidofficial" class="social-link" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+                <a href="https://github.com/certainidofficial" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                     </svg>
@@ -689,7 +624,6 @@
     </footer>
 
     <script>
-        // Waitlist form submission
         document.getElementById('waitlistForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -699,8 +633,6 @@
             
             submitBtn.disabled = true;
             submitBtn.textContent = 'Joining...';
-            
-            console.log('Email submitted:', email);
             
             setTimeout(() => {
                 successMessage.classList.add('show');
@@ -714,22 +646,6 @@
                 }, 5000);
             }, 800);
         });
-
-        // Scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
