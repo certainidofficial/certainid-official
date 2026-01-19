@@ -189,6 +189,72 @@
             font-size: 22px;
         }
 
+        /* Hero CTA Button - Floating Animation */
+        .hero-cta {
+            display: inline-block;
+            margin: 30px 0 40px;
+            animation: heroFloat 2s ease-in-out infinite;
+        }
+
+        @keyframes heroFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .hero-cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--electric-cyan) 0%, #00c4d4 100%);
+            color: var(--deep-indigo);
+            padding: 20px 48px;
+            border-radius: 60px;
+            font-size: 20px;
+            font-weight: 800;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            box-shadow:
+                0 8px 30px rgba(0, 239, 255, 0.5),
+                0 0 60px rgba(0, 239, 255, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .hero-cta-button:hover {
+            transform: scale(1.08);
+            box-shadow:
+                0 12px 40px rgba(0, 239, 255, 0.7),
+                0 0 80px rgba(0, 239, 255, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .hero-cta-button .arrow {
+            font-size: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-cta-button:hover .arrow {
+            transform: translateX(5px);
+        }
+
         .description {
             font-size: 20px;
             line-height: 1.8;
@@ -515,6 +581,14 @@
                 Patent-Protected Technology
             </div>
 
+            <!-- Hero CTA Button - Try the App -->
+            <div class="hero-cta">
+                <a href="https://app.certainid.io" class="hero-cta-button">
+                    Try the App
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+
             <p class="description">
                 The future of digital identity is here. CertainID uses patent-protected 
                 biometric authentication and blockchain technology to prove you're real—without 
@@ -547,6 +621,7 @@
                 <div class="pill primary">⚡ Biometric Authentication</div>
                 <div class="pill">✅ Anti-Deepfake</div>
             </div>
+
 
             <div class="waitlist-section">
                 <h3>Join the Waitlist</h3>
@@ -619,7 +694,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 CertainID. Building the future of digital identity.</p>
+            <p>&copy; 2024 CertainID. Building the future of digital identity. <a href="https://app.certainid.io/" style="color: inherit; opacity: 0.3; text-decoration: none; font-size: 10px;">v1.0</a></p>
         </div>
     </footer>
 
