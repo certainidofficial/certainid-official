@@ -737,10 +737,6 @@
                 <div class="stat-value">On-Chain</div>
                 <div class="stat-label">Verification</div>
             </div>
-            <div class="stat">
-                <div class="stat-value">~$0</div>
-                <div class="stat-label">User Cost</div>
-            </div>
         </div>
 
         <section class="how-section" id="how">
@@ -883,6 +879,45 @@
             </div>
         </div>
     </footer>
+
+    <!-- Voice Assistant Chat Widget -->
+    <div id="chatWidget" style="position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:12px;">
+        <!-- Tooltip -->
+        <div id="chatTooltip" style="background:rgba(15,23,42,0.95);border:1px solid rgba(99,102,241,0.3);backdrop-filter:blur(12px);padding:12px 18px;border-radius:14px;max-width:240px;box-shadow:0 8px 32px rgba(0,0,0,0.5);opacity:1;transform:translateY(0);transition:all 0.3s ease;">
+            <p style="font-size:13px;color:#e2e8f0;margin:0 0 4px;font-weight:600;">Talk to our AI Assistant</p>
+            <p style="font-size:11px;color:#94a3b8;margin:0;line-height:1.5;">Ask about CertainID, biometric verification, or how it works — by voice.</p>
+            <button onclick="document.getElementById('chatTooltip').style.display='none'" style="position:absolute;top:6px;right:8px;background:none;border:none;color:#64748b;cursor:pointer;font-size:14px;padding:2px 6px;line-height:1;">&times;</button>
+        </div>
+        <!-- Floating Button -->
+        <button id="chatBtn" onclick="openVoiceAssistant()" style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#4f46e5);border:2px solid rgba(129,140,248,0.4);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(99,102,241,0.4);transition:all 0.3s ease;" onmouseenter="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 32px rgba(99,102,241,0.5)'" onmouseleave="this.style.transform='scale(1)';this.style.boxShadow='0 4px 24px rgba(99,102,241,0.4)'">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        </button>
+    </div>
+
+    <script>
+        // Voice assistant - opens in dedicated window for microphone permissions
+        function openVoiceAssistant() {
+            var width = 460;
+            var height = 720;
+            var left = window.screenX + window.innerWidth - width - 40;
+            var top = window.screenY + 80;
+            window.open(
+                'https://voice.certainid.io',
+                'CertainID_Voice',
+                'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top + ',resizable=yes,scrollbars=no,status=no,toolbar=no,menubar=no,location=no'
+            );
+        }
+
+        // Auto-hide tooltip after 8 seconds
+        setTimeout(function() {
+            var tooltip = document.getElementById('chatTooltip');
+            if (tooltip) {
+                tooltip.style.opacity = '0';
+                tooltip.style.transform = 'translateY(8px)';
+                setTimeout(function() { tooltip.style.display = 'none'; }, 300);
+            }
+        }, 8000);
+    </script>
 
     <script>
         document.getElementById('waitlistForm').addEventListener('submit', function(e) {
